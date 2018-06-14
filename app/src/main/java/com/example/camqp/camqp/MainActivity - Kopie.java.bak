@@ -1,0 +1,61 @@
+package com.example.camqp.camqp;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
+
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
+
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+
+    ConnectionFactory factory = new ConnectionFactory();
+    private void setupConnectionFactory()
+    {
+       try
+        {
+            factory.setAutomaticRecoveryEnabled(false);
+            factory.setUri("amqp://hpantlky:I0J7p2zR-pWjged630umEfRygHk_jwlp@chicken.rmq.cloudamqp.com/hpantlky");
+            factory.setUsername("hpantlky:hpantlky");
+            factory.setPassword("I0J7p2zR-pWjged630umEfRygHk_jwlp");
+
+        }
+        catch (KeyManagementException | NoSuchAlgorithmException | URISyntaxException e1)
+        {
+            e1.printStackTrace();
+        }
+    }
+
+    public  void open()
+    {
+        try {
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+
+
+           channel.basicPublish("amqp.topic","yellow", MessageProperties.PERSISTENT_TEXT_PLAIN, ("it's me").getBytes());
+
+        }  catch (Exception e1)
+        {
+            Log.d("", "Connection broken: " + e1.getClass().getName());
+        }
+
+    }
+}
