@@ -3,16 +3,16 @@
 
 #include <ArduinoJson.h>
 
-#define wifi_ssid "default"
-#define wifi_password "johann49"
+#define wifi_ssid "wlanName"
+#define wifi_password "password"
 
 #define DEBUG
 #define DEBUG_ESP_SSL
 #define DEBUG_SSL
 
-#define mqtt_server "url"
+#define mqtt_server "animal.rmq.cloudamqp.com"
 #define mqtt_server_port 1883
-#define mqtt_user "user"
+#define mqtt_user "user:user"
 #define mqtt_password "pwd"
 
 //WiFiClientSecure espClient;
